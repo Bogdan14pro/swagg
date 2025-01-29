@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #1a1a2e;
+            color: #ffffff;
+        }
+        .cover h1 {
+            position: relative;
+            color: white;
+            font-family: 'Pacifico', cursive;
+            font-size: 64px;
+            text-shadow: 0 0 20px #ff00ff;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .cover h1:nth-child(2) {
+            font-size: 32px;
+            margin-top: 20px;
+        }
+        .navbar {
+            background-color: #ff69b4;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(255,105,180,0.5);
+        }
+        .navbar-brand {
+            color: #ffffff !important;
+            font-family: 'Pacifico', cursive;
+            font-size: 32px;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        .nav-link {
+            color: #ffffff !important;
+            margin-right: 20px;
+            text-shadow: 0 0 5px #ff00ff;
+        }
+        .nav-link:hover {
+            color: #ff00ff !important;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+        .main-content {
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .cover {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cover::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,105,180,0.5));
+            animation: glow 3s infinite;
+        }
+        @keyframes glow {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .cover h1 {
+            position: relative;
+            color: white;
+            font-family: 'Pacifico', cursive;
+            font-size: 64px;
+            text-shadow: 0 0 20px #ff00ff;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .cover h1:nth-child(2) {
+            font-size: 32px;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 32px;
+            }
+            .cover h1:nth-child(2) {
+                font-size: 24px;
+            }
+        }
+        .card {
+            border: 2px solid #ff69b4;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255,105,180,0.3);
+            padding: 20px;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+        }
+        .card-title {
+            font-family: 'Pacifico', cursive;
+            color: #ff69b4;
+            font-size: 32px;
+            text-shadow: 0 0 10px #ff00ff;
+        }
+        .heart {
+            color: #ff69b4;
+            font-size: 36px;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+        .gallery img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 10px;
+            box-shadow: 0 0 20px rgba(255,105,180,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255,105,180,0.8);
+        }
+        .footer {
+            background-color: #ff69b4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255,105,180,0.5);
+        }
+
+        /* Стили для игр */
+        .game-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255,105,180,0.3);
+        }
+        .number-game {
+            background: rgba(255,192,203,0.3);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .pair-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            background: rgba(255,192,203,0.3);
+            padding: 15px;
+            border-radius: 15px;
+        }
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .card-pair {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 36px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .card-pair.flipped {
+            transform: rotateY(180deg);
+        }
+        .card-pair:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,105,180,0.8);
+        }
+        .card-pair .front,
+        .card-pair .back {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+        }
+        .card-pair .front {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            transform: rotateY(0deg);
+        }
+        .card-pair .back {
+            background: #ffffff;
+            transform: rotateY(180deg);
+            color: #ff69b4;
+        }
+        .review-form {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255,105,180,0.3);
+            margin: 30px 0;
+        }
+        .review-form input,
+        .review-form textarea {
+            margin: 10px 0;
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+        }
+        .review-form button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .review-form button:hover {
+            background: #ff1493;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff00ff;
+        }
+        .reviews-container {
+            margin-top: 30px;
+        }
+        .review-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .review-item img {
+            max-width: 200px;
+            height: auto;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 2px solid #ff69b4;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">Настенька</a>
+        </div>
+    </nav>
+
+    <div class="cover text-center">
+        <div class="title-container">
+            <h1>С любовью, для Настеньки <span class="heart">❤</span></h1>
+            <h1>тебе вниз <span class="heart">⭣</span></h1>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <section>
+            <div class="card">
+                <h2 class="card-title">Почему ты особенная</h2>
+                <p>Ты сваги йоу!</p>
+            </div>
+        </section>
+        <section>
+            <div class="card">
+                <h2 class="card-title">Фотогалерея</h2>
+                <div class="gallery">
+                    <img src="photo1.jpg" alt="Фото 1">
+                    <img src="photo2.jpg" alt="Фото 2">
+                    <img src="photo3.jpg" alt="Фото 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- Угадай число -->
+        <section class="game-container">
+            <h2 class="card-title">Угадай число</h2>
+            <div class="number-game">
+                <input type="number" id="numberInput" class="form-control" placeholder="Введите число от 1 до 20">
+                <button onclick="checkNumber()" class="btn btn-danger">Проверить</button>
+                <p id="numberResult"></p>
+                <p>Попыток оставшихся: <span id="attempts">10</span></p>
+            </div>
+        </section>
+
+        <!-- Найди пару -->
+        <section class="game-container">
+            <h2 class="card-title">Найди пару</h2>
+            <div class="pair-game" id="pairGame"></div>
+        </section>
+
+        <section>
+          <div class="container main-content">
+              <div class="card">
+                  <h2 class="card-title">Оставить отзыв</h2>
+                  <form id="reviewForm" class="review-form">
+                      <textarea id="reviewText" placeholder="Ваш отзыв" rows="4"></textarea>
+                      <input type="file" id="reviewImage" accept="image/*">
+                      <button type="submit">Отправить</button>
+                  </form>
+                  <div class="reviews-container" id="reviewsContainer">
+                      <!-- Отзывы будут добавляться сюда -->
+                  </div>
+              </div>
+          </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>С любовью❤️ ЕЩЭЩЭЩКЕРАВ</p>
+    </footer>
+
+    <script>
+        // Игра Угадай число
+        let targetNumber;
+        let attempts = 5;
+
+        function checkNumber() {
+            const input = document.getElementById('numberInput');
+            const result = document.getElementById('numberResult');
+            const attemptsSpan = document.getElementById('attempts');
+
+            if (!targetNumber) {
+                targetNumber = Math.floor(Math.random() * 20) + 1;
+            }
+
+            const userNumber = parseInt(input.value);
+            attempts--;
+
+            if (userNumber === targetNumber) {
+                result.textContent = 'Урааа! Ты выиграла!';
+                result.style.color = '#d63384';
+                targetNumber = null;
+                attempts = 10;
+            } else {
+                result.textContent = userNumber > targetNumber ? 'Попробуй меньше' : 'Попробуй больше';
+                result.style.color = '#ff0000';
+                attemptsSpan.textContent = attempts;
+
+                if (attempts === 0) {
+                    result.textContent = `Анлучка! Выигрышное число было: ${targetNumber}`;
+                    targetNumber = null;
+                    attempts = 10;
+                }
+            }
+
+            input.value = '';
+        }
+
+        // Игра Найди пару
+        const pairGame = document.getElementById('pairGame');
+        const cards = ['❤', '💖', '💝', '💞'];
+        let flippedCards = [];
+        let canFlip = true;
+
+        function createPairGame() {
+            const gameCards = [...cards, ...cards].sort(() => Math.random() - 0.5);
+
+            gameCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card-pair';
+
+                const front = document.createElement('div');
+                front.className = 'front';
+
+                const back = document.createElement('div');
+                back.className = 'back';
+                back.textContent = card;
+
+                cardElement.appendChild(front);
+                cardElement.appendChild(back);
+                cardElement.onclick = () => flipCard(cardElement);
+
+                pairGame.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(cardElement) {
+            if (!canFlip || flippedCards.includes(cardElement)) return;
+
+            cardElement.classList.add('flipped');
+            flippedCards.push(cardElement);
+
+            if (flippedCards.length === 2) {
+                canFlip = false;
+                checkPair();
+            }
+        }
+
+        function checkPair() {
+            setTimeout(() => {
+                const [first, second] = flippedCards;
+                const firstBack = first.querySelector('.back');
+                const secondBack = second.querySelector('.back');
+
+                if (firstBack.textContent === secondBack.textContent) {
+                    first.style.backgroundColor = '#d63384';
+                    second.style.backgroundColor = '#d63384';
+                } else {
+                    first.classList.remove('flipped');
+                    second.classList.remove('flipped');
+                }
+                flippedCards = [];
+                canFlip = true;
+            }, 1000);
+        }
+
+        createPairGame();
+
+        // Отправка отзывов в Telegram
+        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const reviewText = document.getElementById('reviewText').value.trim();
+            const reviewImage = document.getElementById('reviewImage').files[0];
+
+            if (!reviewText && !reviewImage) {
+                alert('Пожалуйста, заполните хотя бы одно поле');
+                return;
+            }
+
+            // Замените на свои данные
+            const BOT_TOKEN = '7510053050:AAEn-cMHHNmh1WzFms-Dl9e2zc8QDqUYNTo';
+            const CHAT_ID = '1216607276';
+
+            const formData = new FormData();
+            formData.append('chat_id', CHAT_ID); // Добавляем chat_id в formData
+
+            if (reviewImage) {
+                formData.append('photo', reviewImage);
+            }
+            if (reviewText) {
+                formData.append('caption', reviewText);
+            }
+
+            try {
+                let response;
+                if (reviewImage) {
+                    response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        body: new URLSearchParams({
+                            chat_id: CHAT_ID,
+                            text: reviewText
+                        })
+                    });
+                }
+
+                const data = await response.json();
+                if (data.ok) {
+                    alert('Отзыв успешно отправлен!');
+                    document.getElementById('reviewForm').reset();
+                } else {
+                    alert('Ошибка отправки отзыва: ' + data.description || 'Unknown error');
+                }
+            } catch (error) {
+                alert('Ошибка отправки отзыва: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
